@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
+<title>CFD 平台需求案例</title>
+<style>
+:root{--bg:#F6F8FC;--surface:#fff;--ink:#0D1535;--muted:#5B6485;--line:#DDE3F0;--accent:#0052FF;--accent-soft:#E8EFFF;--ok:#0F9D63;--ok-soft:#E6F6EF;--warn:#B7791F;--warn-soft:#FFF5E0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0B1020;--surface:#121935;--ink:#E8ECF8;--muted:#9AA4C4;--line:#26304F;--accent:#5B8CFF;--accent-soft:#1A2750;--ok:#3DD598;--ok-soft:#103326;--warn:#F2B84B;--warn-soft:#3A2C10}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0B1020;--surface:#121935;--ink:#E8ECF8;--muted:#9AA4C4;--line:#26304F;--accent:#5B8CFF;--accent-soft:#1A2750;--ok:#3DD598;--ok-soft:#103326;--warn:#F2B84B;--warn-soft:#3A2C10}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,-apple-system,"PingFang TC",sans-serif;line-height:1.75;font-size:15px}
+.wrap{max-width:860px;margin:0 auto;padding:40px 16px 80px}
+h1{font-size:28px;font-weight:900;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 20px;max-width:64ch}
+.note{font-size:13px;color:var(--muted);background:var(--accent-soft);border-radius:10px;padding:10px 14px;margin:0 0 8px}
+nav.toc{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 8px}
+nav.toc a{font-size:13px;color:var(--accent);background:var(--accent-soft);padding:4px 12px;border-radius:999px;text-decoration:none}
+nav.toc a:focus-visible,nav.toc a:hover{outline:2px solid var(--accent);outline-offset:1px}
+section{margin-top:44px;scroll-margin-top:16px}
+h2{font-size:21px;margin:0 0 4px}
+h3{font-size:15px;color:var(--muted);margin:18px 0 8px}
+.lede{color:var(--muted);margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:12px 0}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+.box b.k{display:block;font-size:12px;letter-spacing:.06em;color:var(--muted);margin-bottom:4px}
+.box p{margin:0}
+.box ul{margin:0;padding-left:18px}
+.decision{background:var(--ok-soft);border:1px solid var(--ok);border-radius:12px;padding:12px 16px;margin:12px 0}
+.decision b.k{display:block;font-size:12px;letter-spacing:.06em;color:var(--ok);margin-bottom:2px}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top;white-space:nowrap}
+td.wrapcell{white-space:normal}
+th{font-size:12px;letter-spacing:.06em;color:var(--muted)}
+tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:14px 0}
+.step{flex:1 1 150px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;min-width:0}
+.step small{display:block;color:var(--muted);font-size:12px;margin-bottom:2px}
+.step.hi{border-color:var(--accent);background:var(--accent-soft)}
+.arrow{align-self:center;color:var(--muted)}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:1px 10px;border-radius:999px;color:var(--warn);background:var(--warn-soft)}
+.mt4 td{font-family:ui-monospace,Consolas,monospace;font-size:12px}
+.mt4 tr.g1 td{background:var(--accent-soft)}
+.mt4 tr.g2 td{background:var(--warn-soft)}
+.figs{display:flex;flex-wrap:wrap;gap:16px;margin:14px 0;justify-content:flex-start}
+figure.fig{margin:0;flex:0 1 250px;min-width:0}
+figure.fig svg{display:block;width:100%;height:auto;max-width:260px}
+figure.fig figcaption{font-size:12.5px;color:var(--muted);margin-top:6px;max-width:260px}
+.s-bg{fill:var(--surface);stroke:var(--line)}
+.s-pane{fill:var(--bg)}
+.s-t{fill:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif}
+.s-m{fill:var(--muted);font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif}
+.s-a{fill:var(--accent)}
+.s-as{fill:var(--accent-soft)}
+.s-up{fill:#D92D3A}
+.s-dn{fill:#0F9D63}
+.s-line{stroke:var(--line);fill:none}
+.s-hl{fill:none;stroke:var(--accent);stroke-width:1.6;stroke-dasharray:4 3}
+code{font-family:ui-monospace,Consolas,monospace;font-size:13px;background:var(--accent-soft);padding:1px 6px;border-radius:5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>CFD 平台需求案例</h1>
+  <p class="sub">五個交易平台產品需求的整理:每個案例說明背景、選項與影響範圍。</p>
+  <p class="note">內容為去識別化改寫,商品、單號、金額與數字皆為示意,不代表任何實際系統資料。</p>
+  <nav class="toc" aria-label="案例目錄">
+    <a href="#c1">當日高低價</a>
+    <a href="#c2">不同槓桿的報價</a>
+    <a href="#c3">前台價格來源</a>
+    <a href="#c4">部分平倉</a>
+    <a href="#c5">隔夜利息</a>
+  </nav>
+
+  <section id="c1">
+    <h2>1. 交易頁改顯示「當日」高低價</h2>
+    <p class="lede">需求方:風控</p>
+    <div class="grid">
+      <div class="box"><b class="k">背景</b><p>交易頁原本顯示「24 小時最高價、最低價、成交量」,風控希望改為「當日」數據。</p></div>
+      <div class="box"><b class="k">問題</b><p>主機在 UTC+0,客戶分別在 UTC+8、UTC+9 使用。「當日」的起訖要怎麼界定?</p></div>
+    </div>
+    <div class="figs">
+      <figure class="fig">
+        <svg viewBox="0 0 260 150" role="img" aria-label="交易頁頂部示意,右側顯示當日最高價、當日最低價、當日成交量">
+          <rect class="s-bg" x="0.5" y="0.5" width="259" height="149" rx="14"/>
+          <text class="s-t" x="16" y="30" font-size="15" font-weight="700">黃金</text>
+          <text class="s-m" x="16" y="45" font-size="10">XAU</text>
+          <text class="s-m" x="16" y="72" font-size="10">最新價格 (USD)</text>
+          <text class="s-dn" x="16" y="98" font-size="22" font-weight="700">2,659.39</text>
+          <text class="s-m" x="16" y="116" font-size="10">-0.11%</text>
+          <rect class="s-hl" x="128" y="58" width="122" height="62" rx="8"/>
+          <text class="s-m" x="138" y="76" font-size="10">當日最高價</text><text class="s-t" x="240" y="76" font-size="10" text-anchor="end">2,669.92</text>
+          <text class="s-m" x="138" y="94" font-size="10">當日最低價</text><text class="s-t" x="240" y="94" font-size="10" text-anchor="end">2,645.24</text>
+          <text class="s-m" x="138" y="112" font-size="10">當日成交量</text><text class="s-t" x="240" y="112" font-size="10" text-anchor="end">140,722</text>
+          <text class="s-m" x="16" y="140" font-size="9">示意畫面,數字為虛構</text>
+        </svg>
+        <figcaption>原本的「24H」欄位改成「當日」,以系統時區 00:00 為分界。</figcaption>
+      </figure>
+      <figure class="fig">
+        <svg viewBox="0 0 260 150" role="img" aria-label="三個時區的客戶看到相同的當日高低價">
+          <rect class="s-bg" x="0.5" y="0.5" width="259" height="149" rx="14"/>
+          <text class="s-t" x="16" y="26" font-size="12" font-weight="700">同一個「當日」</text>
+          <line class="s-line" x1="16" y1="70" x2="244" y2="70"/>
+          <rect class="s-as" x="16" y="50" width="228" height="20" rx="4"/>
+          <text class="s-a" x="22" y="64" font-size="10" font-weight="700">系統時區 00:00 → 24:00</text>
+          <text class="s-m" x="16" y="92" font-size="10">客戶 A  UTC+8</text><rect class="s-a" x="100" y="84" width="144" height="8" rx="4"/>
+          <text class="s-m" x="16" y="110" font-size="10">客戶 B  UTC+9</text><rect class="s-a" x="100" y="102" width="144" height="8" rx="4"/>
+          <text class="s-m" x="16" y="128" font-size="10">主機    UTC+0</text><rect class="s-a" x="100" y="120" width="144" height="8" rx="4"/>
+          <text class="s-m" x="16" y="144" font-size="9">三者看到的高低價一致</text>
+        </svg>
+        <figcaption>不同時區的客戶共用同一個日界線。</figcaption>
+      </figure>
+    </div>
+    <div class="box"><b class="k">影響範圍</b><ul><li>交易頁的欄位名稱與資料來源改為當日</li><li>報價資料需按系統日切分統計</li></ul></div>
+  </section>
+
+  <section id="c2">
+    <h2>2. 同一商品、不同槓桿的圖表與高低價</h2>
+    <p class="lede">需求方:風控</p>
+    <div class="grid">
+      <div class="box"><b class="k">背景</b><p>交易後台中,同一商品的每個槓桿都可以設定不同的點差與利息,所以各槓桿本來就有各自的圖表與高低價。</p></div>
+      <div class="box"><b class="k">問題</b><p>前台一個商品只有一張圖,無法同時呈現每個槓桿的數據。要以哪一個為準?</p></div>
+    </div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>槓桿</th><th>利息方式</th><th class="num">買入利息</th><th class="num">賣出利息</th></tr></thead>
+        <tbody>
+          <tr><td>1x(最小)</td><td>按利率</td><td class="num">-0.010</td><td class="num">-0.025</td></tr>
+          <tr><td>10x</td><td>按點數</td><td class="num">-0.020</td><td class="num">-0.026</td></tr>
+          <tr><td>50x</td><td>按金額</td><td class="num">-0.030</td><td class="num">-0.027</td></tr>
+          <tr><td>100x(最大)</td><td>按金額</td><td class="num">-0.040</td><td class="num">-0.028</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="lede">示意:同一商品在不同槓桿下,利息設定可能完全不同。一般槓桿越高,點差也越大。</p>
+    <div class="grid">
+      <div class="box"><b class="k">方案 A:沿用現行架構</b><p>新增設定,由風控指定以「最大槓桿」或「最小槓桿」的報價作為前台顯示基準。</p></div>
+      <div class="box"><b class="k">方案 B:每個槓桿獨立商品</b><p>每個槓桿各自成為一個商品與圖表(例如 <code>XAU.1x</code>、<code>XAU.5x</code>)。</p></div>
+    </div>
+    <div class="figs">
+      <figure class="fig">
+        <svg viewBox="0 0 260 170" role="img" aria-label="方案 A:行情列表一個商品一列">
+          <rect class="s-bg" x="0.5" y="0.5" width="259" height="169" rx="14"/>
+          <text class="s-t" x="16" y="26" font-size="12" font-weight="700">方案 A  現行架構</text>
+          <rect class="s-as" x="12" y="40" width="236" height="40" rx="8"/>
+          <text class="s-t" x="22" y="58" font-size="12" font-weight="700">黃金</text><text class="s-m" x="22" y="72" font-size="9">XAU</text>
+          <text class="s-t" x="170" y="64" font-size="12" text-anchor="end">2,659.48</text>
+          <rect class="s-dn" x="180" y="50" width="56" height="20" rx="4"/><text x="208" y="64" font-size="10" fill="#fff" text-anchor="middle" font-family="sans-serif">-0.11%</text>
+          <text class="s-m" x="16" y="104" font-size="10">報價取自:</text>
+          <rect class="s-a" x="16" y="112" width="102" height="22" rx="11"/><text x="67" y="127" font-size="10" fill="#fff" text-anchor="middle" font-family="sans-serif">最大槓桿 ✓</text>
+          <rect class="s-bg" x="126" y="112" width="102" height="22" rx="11"/><text class="s-m" x="177" y="127" font-size="10" text-anchor="middle">最小槓桿</text>
+          <text class="s-m" x="16" y="156" font-size="9">風控在後台二選一</text>
+        </svg>
+        <figcaption>一個商品一列,後台設定決定取哪個槓桿的報價。</figcaption>
+      </figure>
+      <figure class="fig">
+        <svg viewBox="0 0 260 170" role="img" aria-label="方案 B:每個槓桿一列">
+          <rect class="s-bg" x="0.5" y="0.5" width="259" height="169" rx="14"/>
+          <text class="s-t" x="16" y="26" font-size="12" font-weight="700">方案 B  每槓桿獨立</text>
+          <g font-size="11">
+            <text class="s-t" x="22" y="52">黃金 <tspan class="s-m" font-size="9">XAU.1x</tspan></text><text class="s-t" x="238" y="52" text-anchor="end">2,659.1</text>
+            <line class="s-line" x1="14" y1="62" x2="246" y2="62"/>
+            <text class="s-t" x="22" y="82">黃金 <tspan class="s-m" font-size="9">XAU.5x</tspan></text><text class="s-t" x="238" y="82" text-anchor="end">2,659.4</text>
+            <line class="s-line" x1="14" y1="92" x2="246" y2="92"/>
+            <text class="s-t" x="22" y="112">黃金 <tspan class="s-m" font-size="9">XAU.10x</tspan></text><text class="s-t" x="238" y="112" text-anchor="end">2,659.9</text>
+            <line class="s-line" x1="14" y1="122" x2="246" y2="122"/>
+            <text class="s-t" x="22" y="142">黃金 <tspan class="s-m" font-size="9">XAU.50x</tspan></text><text class="s-t" x="238" y="142" text-anchor="end">2,660.8</text>
+          </g>
+          <text class="s-m" x="16" y="160" font-size="9">各槓桿各有圖表與高低價</text>
+        </svg>
+        <figcaption>列表會變長,每個槓桿都要有自己的圖表與資料。</figcaption>
+      </figure>
+    </div>
+    <div class="box"><b class="k">影響範圍</b><ul><li>報價來源增加「依槓桿取值」的設定</li><li>行情列表、K 線圖、交易頁的高低價統一取值</li><li>後台設定頁新增最大/最小槓桿選項</li></ul></div>
+  </section>
+
+  <section id="c3">
+    <h2>3. 前台價格來源確認</h2>
+    <p class="lede">需求方:風控</p>
+    <p>確認前台各畫面抓取的是哪一種報價。原則:一律使用<strong>不含群組點差</strong>的報價。</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>畫面</th><th>欄位</th><th>取用價格</th></tr></thead>
+        <tbody>
+          <tr><td>行情列表</td><td>最新價格</td><td>Bid(不含群組點差)</td></tr>
+          <tr><td>交易頁</td><td>最新價格</td><td>Bid(不含群組點差)</td></tr>
+          <tr><td>交易頁</td><td>做多</td><td>Ask(不含群組點差)</td></tr>
+          <tr><td>交易頁</td><td>做空</td><td>Bid(不含群組點差)</td></tr>
+          <tr><td>持倉列表</td><td>最新價格</td><td>Bid(不含群組點差)</td></tr>
+          <tr><td>K 線圖</td><td>價格序列</td><td>Bid(不含群組點差)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="figs">
+      <figure class="fig">
+        <svg viewBox="0 0 260 170" role="img" aria-label="交易頁示意:最新價格、做多、做空各取哪種報價">
+          <rect class="s-bg" x="0.5" y="0.5" width="259" height="169" rx="14"/>
+          <text class="s-t" x="16" y="26" font-size="14" font-weight="700">美國原油</text>
+          <text class="s-m" x="16" y="40" font-size="9">WTI</text>
+          <text class="s-m" x="16" y="62" font-size="10">最新價格 (USD)</text>
+          <text class="s-up" x="16" y="84" font-size="22" font-weight="700">75.22</text>
+          <text class="s-a" x="110" y="80" font-size="10" font-weight="700">A  Bid</text>
+          <rect class="s-up" x="14" y="100" width="108" height="36" rx="8"/>
+          <text x="68" y="116" font-size="11" fill="#fff" text-anchor="middle" font-family="sans-serif" font-weight="700">做多</text>
+          <text x="68" y="129" font-size="9" fill="#fff" text-anchor="middle" font-family="sans-serif">75.22 USD</text>
+          <rect class="s-bg" x="136" y="100" width="108" height="36" rx="8"/>
+          <text class="s-t" x="190" y="116" font-size="11" text-anchor="middle" font-weight="700">做空</text>
+          <text class="s-m" x="190" y="129" font-size="9" text-anchor="middle">75.22 USD</text>
+          <text class="s-a" x="68" y="152" font-size="10" text-anchor="middle" font-weight="700">B  Ask</text>
+          <text class="s-a" x="190" y="152" font-size="10" text-anchor="middle" font-weight="700">C  Bid</text>
+        </svg>
+        <figcaption>三處的價格都不含群組點差。A 與 C 取 Bid,B 取 Ask。</figcaption>
+      </figure>
+    </div>
+    <div class="box"><b class="k">重點</b><p>同一個商品在列表、交易頁、持倉、K 線上看到的價格必須對得起來,否則使用者會以為數據有誤。</p></div>
+  </section>
+
+  <section id="c4">
+    <h2>4. 部分平倉</h2>
+    <p class="lede">需求方:風控</p>
+    <div class="grid">
+      <div class="box"><b class="k">目的</b><p>讓使用者把現有持倉分批賣出,而不是只能一次全部平倉。</p></div>
+      <div class="box"><b class="k">交易系統的行為</b><p>平倉手數小於持倉手數時,原單被平倉,系統另開一張新單承接剩餘手數,並在備註寫「from 原單號」。新單號為系統當前最後單號加 1。</p></div>
+    </div>
+    <h3>情境示意:持倉 1.50 手,分三次出場</h3>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>步驟</th><th class="num">平倉手數</th><th>被平倉單號</th><th>新產生單號</th><th class="num">剩餘手數</th><th>備註</th></tr></thead>
+        <tbody>
+          <tr><td>開倉</td><td class="num">-</td><td>-</td><td>#1001</td><td class="num">1.50</td><td>-</td></tr>
+          <tr><td>第一次</td><td class="num">0.01</td><td>#1001</td><td>#1002</td><td class="num">1.49</td><td>from #1001</td></tr>
+          <tr><td>第二次</td><td class="num">0.05</td><td>#1002</td><td>#1003</td><td class="num">1.44</td><td>from #1002</td></tr>
+          <tr><td>全部平倉</td><td class="num">1.44</td><td>#1003</td><td>-</td><td class="num">0</td><td>-</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="figs">
+      <figure class="fig">
+        <svg viewBox="0 0 260 190" role="img" aria-label="部分平倉面板示意">
+          <rect class="s-bg" x="0.5" y="0.5" width="259" height="189" rx="14"/>
+          <rect class="s-line" x="105" y="8" width="50" height="4" rx="2" fill="var(--line)"/>
+          <text class="s-t" x="130" y="34" font-size="13" font-weight="700" text-anchor="middle">部分平倉</text>
+          <text class="s-m" x="16" y="58" font-size="10">交易類型</text>
+          <rect class="s-bg" x="16" y="64" width="228" height="26" rx="8"/>
+          <text class="s-t" x="28" y="81" font-size="11">市價單</text><text class="s-m" x="232" y="81" font-size="10" text-anchor="end">固定</text>
+          <text class="s-m" x="16" y="108" font-size="10">平倉手數(需小於持倉 1.50)</text>
+          <rect class="s-bg" x="16" y="114" width="228" height="26" rx="8"/>
+          <text class="s-t" x="130" y="131" font-size="12" text-anchor="middle">0.05</text>
+          <rect x="16" y="150" width="228" height="28" rx="8" fill="#E8A33D"/>
+          <text x="130" y="168" font-size="10" fill="#fff" text-anchor="middle" font-family="sans-serif" font-weight="700">部分平倉 #1002 買入 0.05 手 市價</text>
+        </svg>
+        <figcaption>三個操作:選市價、輸入小於持倉的手數、確認按鈕帶出完整描述。</figcaption>
+      </figure>
+      <figure class="fig">
+        <svg viewBox="0 0 260 190" role="img" aria-label="歷史委託列表示意,每筆多一行備註 from 原單號">
+          <rect class="s-bg" x="0.5" y="0.5" width="259" height="189" rx="14"/>
+          <text class="s-t" x="16" y="26" font-size="12" font-weight="700">歷史委託</text>
+          <g font-size="10">
+            <text class="s-t" x="16" y="52" font-size="12" font-weight="700">XAG</text><text class="s-m" x="244" y="52" text-anchor="end">#1003</text>
+            <text class="s-m" x="16" y="68">數量 0.05 手 · 市價平倉</text>
+            <rect class="s-as" x="16" y="74" width="228" height="18" rx="4"/><text class="s-a" x="24" y="87" font-weight="700">備註  from #1002</text>
+            <line class="s-line" x1="14" y1="102" x2="246" y2="102"/>
+            <text class="s-t" x="16" y="124" font-size="12" font-weight="700">XAG</text><text class="s-m" x="244" y="124" text-anchor="end">#1002</text>
+            <text class="s-m" x="16" y="140">數量 0.01 手 · 市價平倉</text>
+            <rect class="s-as" x="16" y="146" width="228" height="18" rx="4"/><text class="s-a" x="24" y="159" font-weight="700">備註  from #1001</text>
+          </g>
+        </svg>
+        <figcaption>報表與後台持倉、平倉列表都多一欄備註,讓人追得到原始單號。</figcaption>
+      </figure>
+    </div>
+    <h3>交易軟體日誌(MT4 格式示意)</h3>
+    <p class="lede">每次部分平倉,日誌都會出現三行:關閉舊單、開出剩餘手數的新單、說明「剩餘單號」。以下為依前面情境重畫的示意,帳號與價格為虛構。</p>
+    <div class="tbl mt4">
+      <table>
+        <thead><tr><th>時間</th><th>訊息</th></tr></thead>
+        <tbody>
+          <tr class="g1"><td>2025.01.10 10:03:04</td><td>'10000001': close order #1003 buy 1.44 XAGUSD.100X at 30.202 at price 30.170</td></tr>
+          <tr class="g1"><td>2025.01.10 10:03:04</td><td>'10000001': order #1003 buy 1.44 XAGUSD.100X at 30.202 closed at price 30.170</td></tr>
+          <tr class="g2"><td>2025.01.10 10:01:56</td><td>'10000001': remainder of order #1002 was opened : #1003 buy 1.44 XAGUSD.100X at 30.202</td></tr>
+          <tr class="g2"><td>2025.01.10 10:01:56</td><td>'10000001': order #1002 buy 0.05 XAGUSD.100X at 30.202 closed at price 30.181</td></tr>
+          <tr class="g2"><td>2025.01.10 10:01:56</td><td>'10000001': close order #1002 buy 0.05 XAGUSD.100X at 30.202 at price 30.181</td></tr>
+          <tr class="g1"><td>2025.01.10 09:58:25</td><td>'10000001': remainder of order #1001 was opened : #1002 buy 1.49 XAGUSD.100X at 30.202</td></tr>
+          <tr class="g1"><td>2025.01.10 09:58:25</td><td>'10000001': order #1001 buy 0.01 XAGUSD.100X at 30.202 closed at price 30.172</td></tr>
+          <tr class="g1"><td>2025.01.10 09:58:25</td><td>'10000001': close order #1001 buy 0.01 XAGUSD.100X at 30.202 at price 30.172</td></tr>
+          <tr><td>2025.01.10 09:53:04</td><td>'10000001': order buy market 1.50 XAGUSD.100X sl: 0.000 tp: 0.000</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="lede">由下往上讀:開倉 1.50 手 → 平 0.01 手(產生 #1002 剩 1.49)→ 平 0.05 手(產生 #1003 剩 1.44)→ 全部平倉。</p>
+    <h3>判斷流程</h3>
+    <div class="flow">
+      <div class="step"><small>1</small>使用者輸入平倉手數</div><span class="arrow">→</span>
+      <div class="step hi"><small>2</small>平倉手數 &lt; 持倉手數?</div><span class="arrow">→</span>
+      <div class="step"><small>3 是</small>平掉原單,產生新單帶剩餘手數</div><span class="arrow">→</span>
+      <div class="step"><small>4</small>新單備註 from 原單號</div>
+    </div>
+    <p class="lede">平倉手數等於持倉手數時,維持原本的全部平倉流程。</p>
+    <div class="box"><b class="k">影響範圍</b>
+      <ul>
+        <li>前台持倉頁新增「部分平倉」操作:類型固定為市價單、數量需小於持倉手數,確認按鈕顯示「部分平倉 #單號 買入 0.01 手 市價」</li>
+        <li>前台報表的歷史委託、倉位歷史新增「備註」欄,讓使用者追溯原始單號</li>
+        <li>後台的持倉列表與平倉列表同樣新增備註欄</li>
+        <li>每一次部分平倉都會讓訂單編號產生變化,需確認對帳與報表以哪個單號為準</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="c5">
+    <h2>5. 隔夜利息直接存提餘額</h2>
+    <p class="lede">需求方:風控 <span class="tag">影響較大</span></p>
+    <div class="grid">
+      <div class="box"><b class="k">背景</b><p>加密商品產生隔夜費時,系統無法直接對會員餘額 (Balance) 增減,而是透過調整持倉單處理。這會影響風險管理,也讓使用者誤解資金變動的原因。</p></div>
+      <div class="box"><b class="k">另一個痛點</b><p>隔夜費寫入失敗時只有自動重送,風控沒有人工補送的管道,自動重送出問題時無法即時補救,影響結算與帳務正確性。</p></div>
+    </div>
+    <h3>使用者故事</h3>
+    <div class="grid">
+      <div class="box"><p>作為風控人員,我希望計算隔夜費時直接影響會員的餘額、不動其持倉單,讓持倉不受干擾,資金變動也更透明。</p></div>
+      <div class="box"><p>作為風控人員,當隔夜費寫入失敗時,我希望能在後台手動重新送出,確保帳戶資金正確。</p></div>
+    </div>
+    <h3>流程</h3>
+    <div class="flow">
+      <div class="step"><small>前台</small>會員下單持倉</div><span class="arrow">→</span>
+      <div class="step"><small>排程</small>依日結算時間,每日計算利息並寫入資料表(一筆利息一筆資料)</div><span class="arrow">→</span>
+      <div class="step hi"><small>排程</small>存入或提出餘額,並在備註寫入關鍵字</div><span class="arrow">→</span>
+      <div class="step"><small>後台</small>記錄成功或失敗,風控可補送或調整</div><span class="arrow">→</span>
+      <div class="step"><small>前台</small>顯示並累加在利息欄位</div>
+    </div>
+    <h3>取捨與決策</h3>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>議題</th><th>決策</th></tr></thead>
+        <tbody>
+          <tr><td>大宗商品與加密商品要不要用同一套利息</td><td class="wrapcell">分開處理。大宗商品先沿用交易軟體內建的利息(平倉時收取);加密商品自行開發(每日收取並顯示,平倉時不再收利息)。後台報表兩邊分別讀取。</td></tr>
+          <tr><td>已用內建利息的舊單,之後怎麼搬</td><td class="wrapcell">先不寫搬移工具,使用率低,暫不評估。</td></tr>
+          <tr><td>直接存提餘額會讓保證金水平變動</td><td class="wrapcell">保證金水平 = 總資產 ÷ 已用開倉保證金。利息存入或提出會改變總資產,水平隨之變動。已與需求方確認可以接受。</td></tr>
+          <tr><td>交易日變動(機率不大)</td><td class="wrapcell">暫不支援,待日後處理未平倉利息的轉移。</td></tr>
+          <tr><td>寫入失敗</td><td class="wrapcell">風控先查詢確認是否真的未發或未收,再人工補送。原因通常是系統與交易軟體之間,已送出但回傳因網路問題沒收到。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box"><b class="k">影響範圍</b>
+      <ul>
+        <li>後台新增利息查詢:可依狀態(成功/失敗)、執行方式(自動/人工)、結算時間篩選</li>
+        <li>前台報表的資金流水顯示利息明細,備註帶入關鍵字</li>
+        <li>加密商品的結算架構調整,需要一段過渡期</li>
+      </ul>
+    </div>
+  </section>
+</div>
+</body>
+</html>

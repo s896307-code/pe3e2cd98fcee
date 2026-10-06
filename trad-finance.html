@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
+<title>傳統金融原型圖</title>
+<style>
+:root{--bg:#F6F8FC;--surface:#fff;--ink:#0D1535;--muted:#5B6485;--line:#DDE3F0;--accent:#0052FF;--accent-soft:#E8EFFF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0B1020;--surface:#121935;--ink:#E8ECF8;--muted:#9AA4C4;--line:#26304F;--accent:#5B8CFF;--accent-soft:#1A2750}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0B1020;--surface:#121935;--ink:#E8ECF8;--muted:#9AA4C4;--line:#26304F;--accent:#5B8CFF;--accent-soft:#1A2750}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,-apple-system,"PingFang TC",sans-serif;line-height:1.6}
+.wrap{max-width:760px;margin:0 auto;padding:48px 16px 64px}
+h1{font-size:28px;font-weight:900;margin:0 0 6px}
+p.sub{color:var(--muted);margin:0 0 28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+a.card{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;color:inherit;text-decoration:none;transition:border-color .15s,transform .15s}
+a.card:hover,a.card:focus-visible{border-color:var(--accent);transform:translateY(-1px);outline:none}
+.ic{flex:none;width:44px;height:44px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:22px}
+.tx b{display:block;font-size:16px}
+.tx span{font-size:13px;color:var(--muted)}
+.go{margin-left:auto;color:var(--muted);font-size:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>傳統金融原型圖</h1>
+  <p class="sub">資產相關設計與 CFD 需求案例</p>
+  <div class="grid">
+    <a class="card" href="250321-axure.html">
+      <div class="ic">💼</div>
+      <div class="tx"><b>資產相關設計</b><span>250321.html · 互動原型</span></div>
+      <div class="go">›</div>
+    </a>
+    <a class="card" href="cfd-cases.html">
+      <div class="ic">📑</div>
+      <div class="tx"><b>CFD 需求案例說明</b><span>cfd-cases.html · 五個需求案例</span></div>
+      <div class="go">›</div>
+    </a>
+  </div>
+</div>
+</body>
+</html>
